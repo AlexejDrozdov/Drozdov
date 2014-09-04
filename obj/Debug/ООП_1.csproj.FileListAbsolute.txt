@@ -1,9 +1,0 @@
-D:\Учёба\5 семестр\ООП\1\ООП_1\ООП_1\bin\Debug\ООП_1.exe.config
-D:\Учёба\5 семестр\ООП\1\ООП_1\ООП_1\bin\Debug\ООП_1.exe
-D:\Учёба\5 семестр\ООП\1\ООП_1\ООП_1\bin\Debug\ООП_1.pdb
-D:\Учёба\5 семестр\ООП\1\ООП_1\ООП_1\obj\Debug\ООП_1.csprojResolveAssemblyReference.cache
-D:\Учёба\5 семестр\ООП\1\ООП_1\ООП_1\obj\Debug\ООП_1.Form1.resources
-D:\Учёба\5 семестр\ООП\1\ООП_1\ООП_1\obj\Debug\ООП_1.Properties.Resources.resources
-D:\Учёба\5 семестр\ООП\1\ООП_1\ООП_1\obj\Debug\ООП_1.csproj.GenerateResource.Cache
-D:\Учёба\5 семестр\ООП\1\ООП_1\ООП_1\obj\Debug\ООП_1.exe
-D:\Учёба\5 семестр\ООП\1\ООП_1\ООП_1\obj\Debug\ООП_1.pdb
