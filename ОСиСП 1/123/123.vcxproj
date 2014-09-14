@@ -14,6 +14,7 @@
     <ProjectGuid>{CD782E2E-3B90-4E21-999F-2C5EF186D608}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My123</RootNamespace>
+    <ProjectName>Lab_1</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -79,23 +80,23 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="123.h" />
+    <ClInclude Include="Lab_1.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="123.cpp" />
+    <ClCompile Include="Lab_1.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="123.rc" />
+    <ResourceCompile Include="Lab_1.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="123.ico" />
+    <Image Include="Lab_1.ico" />
     <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
