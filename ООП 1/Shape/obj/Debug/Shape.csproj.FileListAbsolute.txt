@@ -1,0 +1,5 @@
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Shape\obj\Debug\Shape.csprojResolveAssemblyReference.cache
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Shape\bin\Debug\Shape.dll
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Shape\bin\Debug\Shape.pdb
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Shape\obj\Debug\Shape.dll
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Shape\obj\Debug\Shape.pdb

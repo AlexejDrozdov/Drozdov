@@ -1,0 +1,7 @@
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary2\bin\Debug\ClassLibrary2.dll
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary2\bin\Debug\ClassLibrary2.pdb
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary2\bin\Debug\Shape.dll
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary2\bin\Debug\Shape.pdb
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary2\obj\Debug\Polygon.csprojResolveAssemblyReference.cache
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary2\obj\Debug\ClassLibrary2.dll
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary2\obj\Debug\ClassLibrary2.pdb

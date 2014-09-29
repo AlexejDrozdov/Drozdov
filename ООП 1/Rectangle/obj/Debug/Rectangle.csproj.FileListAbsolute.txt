@@ -1,0 +1,7 @@
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Rectangle\bin\Debug\Rectangle.dll
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Rectangle\bin\Debug\Rectangle.pdb
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Rectangle\bin\Debug\Shape.dll
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Rectangle\bin\Debug\Shape.pdb
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Rectangle\obj\Debug\Rectangle.csprojResolveAssemblyReference.cache
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Rectangle\obj\Debug\Rectangle.dll
+D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Rectangle\obj\Debug\Rectangle.pdb
