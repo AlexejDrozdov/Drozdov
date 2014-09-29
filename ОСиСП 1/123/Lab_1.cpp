@@ -20,6 +20,7 @@ int currenttools;
 int width = 0;
 BYTE R, G, B;
 COLORREF RGBcurrent = RGB(0,0,0);
+double zoom = 1;
 
 
 // ќтправить объ€влени€ функций, включенных в этот модуль кода:
@@ -111,7 +112,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // —охранить дескриптор экземпл€ра в глобальной переменной
 
    hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+	   CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
    if (!hWnd)
    {
       return FALSE;
@@ -273,10 +274,7 @@ void LPT(HWND hWnd)
 
 		GetClientRect(hWnd,&client);
 
-		//client.right *= px*100;
-	//	client.bottom *= py*100;
 		PatBlt(PrintDialog.hDC, 0, 0, client.right, client.bottom, PATCOPY);
-		//BitBlt(PrintDialog.hDC, 0, 0, client.right, client.bottom, GetDC(hWnd), 0, 0, SRCCOPY);
 		StretchBlt(PrintDialog.hDC, 0, 0, client.right*px/150, client.bottom*px/150, GetDC(hWnd), 0, 0, client.right, client.bottom, SRCCOPY);
 		EndPage(PrintDialog.hDC);
 		EndDoc(PrintDialog.hDC);
@@ -314,6 +312,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	HDC hdc;
 	HBRUSH brush;
 	HPEN pen;
+	POINT beginpoly;
+	int firstdown = 0;
+
+
+	beginpoly.x = 0;
+	beginpoly.y = 0;
+
 
 
 	switch (message)
@@ -321,16 +326,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:
 		bufDC = CreateCompatibleDC(GetDC(hWnd)); 	
 		GetClientRect(hWnd,&client); 
-		client.right = 1920;
-		client.bottom = 1080;
-		bufBitmap = CreateCompatibleBitmap(GetDC(hWnd), client.right, client.bottom);
-		brush = (HBRUSH)GetStockObject(WHITE_BRUSH); 
+		bufBitmap = CreateCompatibleBitmap(GetDC(hWnd), client.right*3, client.bottom*3);
+		brush = CreateSolidBrush(RGB(255, 255, 255));
 		pen = CreatePen(BS_SOLID, width, RGB(R, G, B));
 		SelectObject(bufDC, bufBitmap); 
 		SelectObject(bufDC, brush);		
-
 		SelectObject(bufDC, pen);
-		//(bufDC, 0, 0, client.right, client.bottom);
 		FillRect(bufDC, &client, brush);
 		
 
@@ -361,6 +362,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case ID_RECTANGLE:
 			currenttools = 2;
+			break;
+		case ID_POLYGON:
+			currenttools = 3;
 			break;
 		//change width
 		case ID_WIDTH1:
@@ -404,12 +408,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}
 		pen = CreatePen(BS_SOLID, width, RGBcurrent);
-		//DeleteObject(SelectObject(GetDC(hWnd), pen));
 		DeleteObject(SelectObject(bufDC, pen));
 		DeleteObject(SelectObject(bufDCTmp, pen));
-	//	LineTo(GetDC(hWnd), 200, 200);
-		//InvalidateRect(hWnd, NULL, false);
-
 
 
 		break;
@@ -418,24 +418,47 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		hdc = BeginPaint(hWnd, &ps);
 		if (fDraw)
 		{
-			BitBlt(hdc, 0, 0, client.right, client.bottom, bufDCTmp, 0, 0, SRCCOPY);
+	//		BitBlt(hdc, 0, 0, client.right, client.bottom, bufDCTmp, 0, 0, SRCCOPY);
+			StretchBlt(hdc, 0, 0, client.right, client.bottom, bufDCTmp, 0, 0, client.right * zoom, client.bottom * zoom, SRCCOPY);
 		}
 		else
 		{
-			BitBlt(hdc, 0, 0, client.right, client.bottom, bufDC, 0, 0, SRCCOPY);
+			StretchBlt(hdc, 0, 0, client.right, client.bottom, bufDC, 0, 0,client.right * zoom, client.bottom * zoom, SRCCOPY);
 		}
 
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_DESTROY:
+		DeleteObject(bufDC);
+		DeleteObject(bufDCTmp);
+		DeleteObject(bufBitmap);
+		DeleteObject(bufBitmapTmp);
 		PostQuitMessage(0);
 		break;
 	case WM_LBUTTONDOWN:
 		fDraw = TRUE;
 		ptPrevious.x = LOWORD(lParam);
 		ptPrevious.y = HIWORD(lParam);
+		if (currenttools == 3)
+		{
+			if (firstdown == 0)
+			{
+				beginpoly.x = LOWORD(lParam);
+				beginpoly.y = HIWORD(lParam);
+				firstdown = 1;
+			}
+			else
+			{
+			//	MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
+				LineTo(bufDC, LOWORD(lParam), HIWORD(lParam));
+			}
+		}
 		return 0L;
-
+		break;
+	case WM_RBUTTONUP:
+		LineTo(bufDCTmp, beginpoly.x, beginpoly.y);
+		firstdown = 0;
+		break;
 	case WM_LBUTTONUP:
 		if (fDraw)
 		{
@@ -450,9 +473,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
 				Rectangle(bufDC, ptPrevious.x, ptPrevious.y, LOWORD(lParam), HIWORD(lParam));
 			}
+			if (currenttools == 3)
+			{
+			//	MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
+				LineTo(bufDC, LOWORD(lParam), HIWORD(lParam));
+			}
 		}
 		fDraw = FALSE;
 		return 0L;
+		break;
 
 	case WM_MOUSEMOVE:
 		if (fDraw)
@@ -460,7 +489,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			
 
 			bufBitmapTmp = CreateCompatibleBitmap(GetDC(hWnd), client.right, client.bottom);
-			SelectObject(bufDCTmp, bufBitmapTmp);
+			DeleteObject(SelectObject(bufDCTmp, bufBitmapTmp));
 			BitBlt(bufDCTmp, 0, 0, client.right, client.bottom, bufDC, 0, 0, SRCCOPY);
 			if (currenttools == 1)  //if line
 			{	
@@ -480,26 +509,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				MoveToEx(bufDCTmp, ptPrevious.x, ptPrevious.y, NULL);
 				Rectangle(bufDCTmp, ptPrevious.x, ptPrevious.y, LOWORD(lParam), HIWORD(lParam));
 			}
+
+			if (currenttools == 3)
+			{
+
+				MoveToEx(bufDCTmp, ptPrevious.x, ptPrevious.y, NULL);
+				LineTo(bufDCTmp, LOWORD(lParam), HIWORD(lParam));
+			}
 			InvalidateRect(hWnd, NULL, false);
 			UpdateWindow(hWnd);
 		}
+		break;
 	case WM_MOUSEWHEEL:
-		if (LEFT_CTRL_PRESSED)
+		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
 		{
-			if (HIWORD(wParam)>WHEEL_DELTA)
-			{
-				StretchBlt(bufDCTmp, 0, 0, client.right - 15, client.bottom - 15, bufDC, 0, 0, client.right, client.bottom,SRCCOPY);
-				BitBlt(bufDC, 0, 0, client.right, client.bottom, bufDCTmp, 0, 0,SRCCOPY);
-				InvalidateRect(hWnd, NULL, false);
-
-			}
-			//else
-			//{
-				//StretchBlt(bufDCTmp, 0, 0, client.right + 15, client.bottom + 15, bufDC, 0, 0, client.right, client.bottom, SRCCOPY);
-				//BitBlt(bufDC, 0, 0, client.right, client.bottom, bufDCTmp, 0, 0, SRCCOPY);
-				//InvalidateRect(hWnd, NULL, false);
-			//}
+			zoom *= 1.25;
 		}
+		else
+		{
+			zoom /= 1.25;
+		}
+		InvalidateRect(hWnd, NULL, false);
+		UpdateWindow(hWnd);
 		break;
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
