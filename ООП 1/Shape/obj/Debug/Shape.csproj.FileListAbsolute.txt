@@ -3,3 +3,8 @@ D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Shape\bin\Debug\Shape.dll
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Shape\bin\Debug\Shape.pdb
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Shape\obj\Debug\Shape.dll
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Shape\obj\Debug\Shape.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Shape\bin\Debug\Shape.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Shape\bin\Debug\Shape.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Shape\obj\Debug\Shape.csprojResolveAssemblyReference.cache
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Shape\obj\Debug\Shape.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Shape\obj\Debug\Shape.pdb

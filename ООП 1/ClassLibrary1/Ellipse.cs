@@ -19,7 +19,7 @@ namespace Ellipse
         }
         public override void Draw(Graphics e)
         {
-            e.DrawEllipse(Pens.Red, point.X, point.Y, ellsize.Width, ellsize.Height);
+            e.DrawEllipse(new Pen(Color), point.X, point.Y, ellsize.Width, ellsize.Height);
         }
     }
 }

@@ -5,3 +5,10 @@ D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary2\bin\Debug\Sh
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary2\obj\Debug\Polygon.csprojResolveAssemblyReference.cache
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary2\obj\Debug\ClassLibrary2.dll
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary2\obj\Debug\ClassLibrary2.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\bin\Debug\ClassLibrary2.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\bin\Debug\ClassLibrary2.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\bin\Debug\Shape.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\bin\Debug\Shape.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\obj\Debug\Polygon.csprojResolveAssemblyReference.cache
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\obj\Debug\ClassLibrary2.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\obj\Debug\ClassLibrary2.pdb

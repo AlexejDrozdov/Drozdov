@@ -5,3 +5,10 @@ D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Rectangle\bin\Debug\Shape.
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Rectangle\obj\Debug\Rectangle.csprojResolveAssemblyReference.cache
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Rectangle\obj\Debug\Rectangle.dll
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Rectangle\obj\Debug\Rectangle.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Rectangle\bin\Debug\Rectangle.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Rectangle\bin\Debug\Rectangle.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Rectangle\bin\Debug\Shape.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Rectangle\bin\Debug\Shape.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Rectangle\obj\Debug\Rectangle.csprojResolveAssemblyReference.cache
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Rectangle\obj\Debug\Rectangle.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Rectangle\obj\Debug\Rectangle.pdb

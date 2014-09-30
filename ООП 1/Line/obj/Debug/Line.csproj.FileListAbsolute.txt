@@ -5,3 +5,10 @@ D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Line\bin\Debug\Shape.pdb
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Line\obj\Debug\Line.csprojResolveAssemblyReference.cache
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Line\obj\Debug\Line.dll
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\Line\obj\Debug\Line.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Line\bin\Debug\Line.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Line\bin\Debug\Line.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Line\bin\Debug\Shape.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Line\bin\Debug\Shape.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Line\obj\Debug\Line.csprojResolveAssemblyReference.cache
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Line\obj\Debug\Line.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\Line\obj\Debug\Line.pdb

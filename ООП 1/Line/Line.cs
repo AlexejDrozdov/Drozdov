@@ -9,15 +9,13 @@ namespace Line
 {
     public class Line: Shape.Shape
     {
-        Point begin,end;
         public Line(Point[] points)
         {
-            begin = points[0];
-            end = points[1];
+            Points = points;
         }
         public override void Draw(Graphics e)
         {
-            e.DrawLine(Pens.Green, begin.X, begin.Y, end.X, end.Y);
+            e.DrawLine(new Pen(Color), Points[0].X, Points[0].Y, Points[1].X, Points[1].Y);
         }
     }
 }

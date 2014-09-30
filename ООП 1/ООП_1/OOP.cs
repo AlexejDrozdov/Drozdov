@@ -38,6 +38,7 @@ namespace OOP_1
                 points[i].Y = rand.Next(0 , 500); 
             }
             shape = new Line.Line(points);
+            shape.Color = Color.Black;
             shape.Draw(graph);
             List.Add(shape);
         }
@@ -51,6 +52,7 @@ namespace OOP_1
             a = rand.Next(10, 200);
             b = rand.Next(10, 200);
             shape = new Ellipse.Ellipse(point, a, b);
+            shape.Color = Color.Lime;
             shape.Draw(graph);
             List.Add(shape);
         }
@@ -64,6 +66,7 @@ namespace OOP_1
                 points[i].Y = rand.Next(0, 300);
             }
             shape = new Rectangle.Rectangle(points);
+            shape.Color = Color.Red;
             shape.Draw(graph);
             List.Add(shape);
         }

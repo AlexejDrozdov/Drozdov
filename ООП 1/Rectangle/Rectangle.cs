@@ -9,15 +9,13 @@ namespace Rectangle
 {
     public class Rectangle: Shape.Shape
     {
-        Point begin, end;
         public Rectangle(Point[] points)
         {
-            begin = points[0];
-            end = points[1];
+            Points = points;
         }
         public override void Draw(Graphics e)
         {
-            e.DrawRectangle(Pens.Orange,begin.X, begin.Y,end.X,end.Y);
+            e.DrawRectangle(new Pen(Color),Points[0].X, Points[0].Y,Points[1].X,Points[1].Y);
         }
     }
 }

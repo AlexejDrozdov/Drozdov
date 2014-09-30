@@ -5,3 +5,10 @@ D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary1\bin\Debug\Sh
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary1\bin\Debug\Shape.pdb
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary1\obj\Debug\ClassLibrary1.dll
 D:\Учёба\5 семестр\ООП\Drozdov\Drozdov\ClassLibrary1\obj\Debug\ClassLibrary1.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary1\bin\Debug\ClassLibrary1.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary1\bin\Debug\ClassLibrary1.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary1\bin\Debug\Shape.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary1\bin\Debug\Shape.pdb
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary1\obj\Debug\Ellipse.csprojResolveAssemblyReference.cache
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary1\obj\Debug\ClassLibrary1.dll
+C:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary1\obj\Debug\ClassLibrary1.pdb

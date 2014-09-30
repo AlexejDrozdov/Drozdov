@@ -15,12 +15,17 @@ BOOL fDraw = FALSE;
 POINT ptPrevious;
 HDC bufDC, bufDCTmp;
 HBITMAP bufBitmap, bufBitmapTmp;
-RECT client;
+RECT client, text;
 int currenttools;
 int width = 0;
 BYTE R, G, B;
 COLORREF RGBcurrent = RGB(0,0,0);
 double zoom = 1;
+int firstdown = 0;
+//static PTCHAR text;
+POINT beginpoly;
+
+
 
 
 // Отправить объявления функций, включенных в этот модуль кода:
@@ -312,12 +317,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	HDC hdc;
 	HBRUSH brush;
 	HPEN pen;
-	POINT beginpoly;
-	int firstdown = 0;
-
-
-	beginpoly.x = 0;
-	beginpoly.y = 0;
 
 
 
@@ -341,6 +340,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		SelectObject(bufDCTmp, pen);
 		FillRect(bufDCTmp, &client, brush);
 
+	//	text = (PTCHAR)GlobalAlloc(GPTR, 50000 * sizeof(TCHAR));
 		break;
 	case WM_COMMAND:
 		wmId    = LOWORD(wParam);
@@ -365,6 +365,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case ID_POLYGON:
 			currenttools = 3;
+			break;
+		case ID_ELLIPSE:
+			currenttools = 4;
 			break;
 		//change width
 		case ID_WIDTH1:
@@ -449,7 +452,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			}
 			else
 			{
-			//	MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
+				MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
 				LineTo(bufDC, LOWORD(lParam), HIWORD(lParam));
 			}
 		}
@@ -475,8 +478,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			}
 			if (currenttools == 3)
 			{
-			//	MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
+				MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
 				LineTo(bufDC, LOWORD(lParam), HIWORD(lParam));
+			}
+			if (currenttools == 4)
+			{
+				MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
+				Ellipse(bufDC, ptPrevious.x, ptPrevious.y, LOWORD(lParam), HIWORD(lParam));
+			}
+			if (currenttools == 5)
+			{
+				text.bottom = ptPrevious.x;
+				text.left = ptPrevious.y;
+				text.right = LOWORD(lParam);
+				text.top = HIWORD(lParam);
 			}
 		}
 		fDraw = FALSE;
@@ -515,6 +530,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 				MoveToEx(bufDCTmp, ptPrevious.x, ptPrevious.y, NULL);
 				LineTo(bufDCTmp, LOWORD(lParam), HIWORD(lParam));
+			}
+			if (currenttools == 4)
+			{
+				MoveToEx(bufDCTmp, ptPrevious.x, ptPrevious.y, NULL);
+				Ellipse(bufDCTmp, ptPrevious.x, ptPrevious.y, LOWORD(lParam), HIWORD(lParam));
 			}
 			InvalidateRect(hWnd, NULL, false);
 			UpdateWindow(hWnd);
