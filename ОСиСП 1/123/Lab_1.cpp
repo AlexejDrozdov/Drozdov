@@ -24,6 +24,7 @@ double zoom = 1;
 int firstdown = 0;
 //static PTCHAR text;
 POINT beginpoly;
+POINT currentpoly;
 
 
 
@@ -364,7 +365,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			currenttools = 2;
 			break;
 		case ID_POLYGON:
-			currenttools = 3;
+			currenttools = 6;
 			break;
 		case ID_ELLIPSE:
 			currenttools = 4;
@@ -442,24 +443,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		fDraw = TRUE;
 		ptPrevious.x = LOWORD(lParam);
 		ptPrevious.y = HIWORD(lParam);
-		if (currenttools == 3)
-		{
-			if (firstdown == 0)
-			{
-				beginpoly.x = LOWORD(lParam);
-				beginpoly.y = HIWORD(lParam);
-				firstdown = 1;
-			}
-			else
-			{
-				MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
-				LineTo(bufDC, LOWORD(lParam), HIWORD(lParam));
-			}
-		}
 		return 0L;
 		break;
 	case WM_RBUTTONUP:
-		LineTo(bufDCTmp, beginpoly.x, beginpoly.y);
+		if (currenttools == 6)
+		{
+			MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
+
+
+			LineTo(bufDC, beginpoly.x, beginpoly.y);
+			LineTo(bufDCTmp, beginpoly.x, beginpoly.y);
+			fDraw = false;
+		}
 		firstdown = 0;
 		break;
 	case WM_LBUTTONUP:
@@ -476,10 +471,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
 				Rectangle(bufDC, ptPrevious.x, ptPrevious.y, LOWORD(lParam), HIWORD(lParam));
 			}
-			if (currenttools == 3)
+			if ((currenttools == 3) || (currenttools == 6))
 			{
-				MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
-				LineTo(bufDC, LOWORD(lParam), HIWORD(lParam));
+					if (firstdown == 0)
+					{
+						currentpoly.x = ptPrevious.x;
+						currentpoly.y = ptPrevious.y;
+						beginpoly.x = ptPrevious.x;
+						beginpoly.y = ptPrevious.y;
+						firstdown = 1;
+					}
+					MoveToEx(bufDC, currentpoly.x, currentpoly.y, NULL);
+				    LineTo(bufDC, LOWORD(lParam), HIWORD(lParam));
+					currentpoly.x = LOWORD(lParam);
+					currentpoly.y = HIWORD(lParam);
 			}
 			if (currenttools == 4)
 			{
@@ -525,10 +530,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				Rectangle(bufDCTmp, ptPrevious.x, ptPrevious.y, LOWORD(lParam), HIWORD(lParam));
 			}
 
-			if (currenttools == 3)
+			if ((currenttools == 3) || (currenttools == 6))
 			{
-
-				MoveToEx(bufDCTmp, ptPrevious.x, ptPrevious.y, NULL);
+				MoveToEx(bufDCTmp, currentpoly.x, currentpoly.y, NULL);
 				LineTo(bufDCTmp, LOWORD(lParam), HIWORD(lParam));
 			}
 			if (currenttools == 4)
