@@ -25,7 +25,8 @@ int firstdown = 0;
 //static PTCHAR text;
 POINT beginpoly;
 POINT currentpoly;
-
+unsigned char S[256];
+int j = 0;
 
 
 
@@ -370,6 +371,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_ELLIPSE:
 			currenttools = 4;
 			break;
+		case ID_TEXT:
+			currenttools = 7;
+			break;
+		case ID_POLYLINE:
+			currenttools = 3;
+			break;
 		//change width
 		case ID_WIDTH1:
 			width = 1;
@@ -445,14 +452,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		ptPrevious.y = HIWORD(lParam);
 		return 0L;
 		break;
+	case WM_CHAR: 
+		if (currenttools == 7)
+		{
+			S[j] = wParam;
+			j++;
+			S[j] = '\0';
+			SetTextColor(bufDC, RGB(0, 0, 0));
+			SetBkColor(bufDC, RGB(255, 255, 255));
+			::TextOutA(bufDC, LOWORD(lParam), HIWORD(lParam), (char *)S, strlen((char *)S));
+		}
+		break;
 	case WM_RBUTTONUP:
 		if (currenttools == 6)
 		{
-			MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
-
+		//	MoveToEx(bufDC, ptPrevious.x, ptPrevious.y, NULL);
 
 			LineTo(bufDC, beginpoly.x, beginpoly.y);
-			LineTo(bufDCTmp, beginpoly.x, beginpoly.y);
+		//	LineTo(bufDCTmp, beginpoly.x, beginpoly.y);
 			fDraw = false;
 		}
 		firstdown = 0;
@@ -481,6 +498,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 						beginpoly.y = ptPrevious.y;
 						firstdown = 1;
 					}
+				
 					MoveToEx(bufDC, currentpoly.x, currentpoly.y, NULL);
 				    LineTo(bufDC, LOWORD(lParam), HIWORD(lParam));
 					currentpoly.x = LOWORD(lParam);
@@ -532,7 +550,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			if ((currenttools == 3) || (currenttools == 6))
 			{
-				MoveToEx(bufDCTmp, currentpoly.x, currentpoly.y, NULL);
+
+				if (firstdown != 0)
+					MoveToEx(bufDCTmp, currentpoly.x, currentpoly.y, NULL);
+				else
+					(MoveToEx(bufDCTmp, ptPrevious.x, ptPrevious.y, NULL));
 				LineTo(bufDCTmp, LOWORD(lParam), HIWORD(lParam));
 			}
 			if (currenttools == 4)
