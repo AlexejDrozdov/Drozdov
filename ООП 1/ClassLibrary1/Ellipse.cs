@@ -11,11 +11,12 @@ namespace Ellipse
     {
         Point point;
         Size ellsize;
-        public Ellipse(Point centre, int a, int b)
+        public Ellipse(Point[] points)
         {
-            point = centre;
-            ellsize.Width = a * 2;
-            ellsize.Height = b * 2;
+            point = new Point(points[0].X + (points[1].X - points[0].X) / 2, 
+                points[0].Y + (points[1].Y - points[0].Y) / 2);
+            ellsize.Width = points[1].X - points[0].X;
+            ellsize.Height = points[1].Y - points[0].Y;
         }
         public override void Draw(Graphics e)
         {

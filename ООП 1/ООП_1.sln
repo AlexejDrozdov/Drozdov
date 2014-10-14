@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ellipse", "ClassLibrary1\El
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rectangle", "Rectangle\Rectangle.csproj", "{019CF6CA-873A-4B26-BA6B-E2E2128652B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polygon", "ClassLibrary2\Polygon.csproj", "{490F469C-56C4-45B6-8C4E-F0B34FA7375A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Triangle", "ClassLibrary2\Triangle.csproj", "{490F469C-56C4-45B6-8C4E-F0B34FA7375A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

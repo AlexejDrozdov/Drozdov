@@ -31,11 +31,11 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.фигурыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.LineStrip = new System.Windows.Forms.ToolStripMenuItem();
-            this.EllipseStrip = new System.Windows.Forms.ToolStripMenuItem();
-            this.Rectangle = new System.Windows.Forms.ToolStripMenuItem();
             this.ClearPicture = new System.Windows.Forms.ToolStripMenuItem();
-            this.PolygonStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -45,7 +45,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 48);
+            this.pictureBox1.Location = new System.Drawing.Point(16, 80);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(500, 500);
             this.pictureBox1.TabIndex = 0;
@@ -64,55 +64,56 @@
             // фигурыToolStripMenuItem
             // 
             this.фигурыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.LineStrip,
-            this.EllipseStrip,
-            this.Rectangle,
-            this.ClearPicture,
-            this.PolygonStrip});
+            this.ClearPicture});
             this.фигурыToolStripMenuItem.Name = "фигурыToolStripMenuItem";
             this.фигурыToolStripMenuItem.Size = new System.Drawing.Size(123, 41);
             this.фигурыToolStripMenuItem.Text = "Фигуры";
             // 
-            // LineStrip
-            // 
-            this.LineStrip.Name = "LineStrip";
-            this.LineStrip.Size = new System.Drawing.Size(290, 42);
-            this.LineStrip.Text = "Линия";
-            this.LineStrip.Click += new System.EventHandler(this.Line_Click);
-            // 
-            // EllipseStrip
-            // 
-            this.EllipseStrip.Name = "EllipseStrip";
-            this.EllipseStrip.Size = new System.Drawing.Size(290, 42);
-            this.EllipseStrip.Text = "Эллипс";
-            this.EllipseStrip.Click += new System.EventHandler(this.EllipseStrip_Click);
-            // 
-            // Rectangle
-            // 
-            this.Rectangle.Name = "Rectangle";
-            this.Rectangle.Size = new System.Drawing.Size(290, 42);
-            this.Rectangle.Text = "Прямоугольник";
-            this.Rectangle.Click += new System.EventHandler(this.Rectangle_Click);
-            // 
             // ClearPicture
             // 
             this.ClearPicture.Name = "ClearPicture";
-            this.ClearPicture.Size = new System.Drawing.Size(290, 42);
+            this.ClearPicture.Size = new System.Drawing.Size(209, 42);
             this.ClearPicture.Text = "Очистить";
             this.ClearPicture.Click += new System.EventHandler(this.ClearPicture_Click);
             // 
-            // PolygonStrip
+            // textBox1
             // 
-            this.PolygonStrip.Name = "PolygonStrip";
-            this.PolygonStrip.Size = new System.Drawing.Size(290, 42);
-            this.PolygonStrip.Text = "Многоульник";
-            this.PolygonStrip.Click += new System.EventHandler(this.PolygonStrip_Click);
+            this.textBox1.Location = new System.Drawing.Point(16, 48);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 26);
+            this.textBox1.TabIndex = 3;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(122, 48);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 26);
+            this.textBox2.TabIndex = 4;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(246, 48);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(100, 26);
+            this.textBox3.TabIndex = 5;
+            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(352, 48);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(100, 26);
+            this.textBox4.TabIndex = 6;
             // 
             // OOP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(528, 558);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -131,11 +132,11 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem фигурыToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem LineStrip;
-        private System.Windows.Forms.ToolStripMenuItem EllipseStrip;
-        private System.Windows.Forms.ToolStripMenuItem Rectangle;
         private System.Windows.Forms.ToolStripMenuItem ClearPicture;
-        private System.Windows.Forms.ToolStripMenuItem PolygonStrip;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
 
 
 

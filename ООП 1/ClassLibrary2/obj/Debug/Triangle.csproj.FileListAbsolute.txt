@@ -1,0 +1,7 @@
+c:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\bin\Debug\Shape.dll
+c:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\bin\Debug\Shape.pdb
+c:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\bin\Debug\Triangle.dll
+c:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\bin\Debug\Triangle.pdb
+c:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\obj\Debug\Triangle.dll
+c:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\obj\Debug\Triangle.pdb
+c:\Users\ASUS\Documents\GitHub\Drozdov\ООП 1\ClassLibrary2\obj\Debug\Triangle.csprojResolveAssemblyReference.cache

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Reflection;
 
 
 namespace OOP_1
@@ -16,79 +18,82 @@ namespace OOP_1
         Graphics graph;
         Shape.Shape shape;
         Point[] points;
-        
+
         private List<Shape.Shape> List;
+
+        private List<Type> shapeTypes;
 
         int i;
         Random rand = new Random();
         public OOP()
         {
-            
             InitializeComponent();
+
+            AddMenu();
             graph = pictureBox1.CreateGraphics();
             List = new List<Shape.Shape>();
         }
 
-        private void Line_Click(object sender, EventArgs e)
+        private void AddMenu()
+        {
+            var directory = new DirectoryInfo("Shapes");
+            shapeTypes = directory.GetFiles("*.dll").
+                Select(x => Assembly.LoadFile(x.FullName).GetTypes().
+                    FirstOrDefault(y => y.IsSubclassOf(typeof(Shape.Shape))))
+                    .Where(x => x != null).ToList();
+            foreach (var type in shapeTypes)
+            {
+                var menuItem = new ToolStripButton
+                {
+                    Name = type.Name,
+                    Text = type.Name,
+                    Tag = type,
+                };
+
+                menuItem.Click += ShapeItemClick;
+                фигурыToolStripMenuItem.DropDownItems.Add(menuItem);
+            }
+        }
+
+
+        private void ShapeItemClick(object sender, EventArgs e)
         {
             points = new Point[2];
-            for (i = 0; i <2; i++)
+
+            if (textBox1.Text == "")
             {
-                points[i].X = rand.Next(0 , 500); 
-                points[i].Y = rand.Next(0 , 500); 
+                points[0].X = rand.Next(10, pictureBox1.Width);
+                points[0].Y = rand.Next(10, pictureBox1.Height);
+                points[1].X = rand.Next(points[0].X, pictureBox1.Width);
+                points[1].Y = rand.Next(points[0].Y, pictureBox1.Height);
             }
-            shape = new Line.Line(points);
+            else
+            {
+                points[0].X = Convert.ToInt32(textBox1.Text);
+                points[0].Y = Convert.ToInt32(textBox2.Text);
+
+                points[1].X = Convert.ToInt32(textBox3.Text);
+                points[1].Y = Convert.ToInt32(textBox4.Text);
+            }
+            
+            
+            shape = (Shape.Shape)Activator.CreateInstance((Type)((ToolStripButton)sender).Tag, points);
             shape.Color = Color.Black;
             shape.Draw(graph);
             List.Add(shape);
         }
 
-        private void EllipseStrip_Click(object sender, EventArgs e)
-        {
-            int a, b;
-            Point point = new Point();
-            point.X = rand.Next(50, 200);
-            point.Y= rand.Next(50, 200);
-            a = rand.Next(10, 200);
-            b = rand.Next(10, 200);
-            shape = new Ellipse.Ellipse(point, a, b);
-            shape.Color = Color.Lime;
-            shape.Draw(graph);
-            List.Add(shape);
-        }
-
-        private void Rectangle_Click(object sender, EventArgs e)
-        {
-            points = new Point[2];
-            for (i = 0; i < 2; i++)
-            {
-                points[i].X = rand.Next(0, 200);
-                points[i].Y = rand.Next(0, 300);
-            }
-            shape = new Rectangle.Rectangle(points);
-            shape.Color = Color.Red;
-            shape.Draw(graph);
-            List.Add(shape);
-        }
-
+        
         private void ClearPicture_Click(object sender, EventArgs e)
         {
             graph.Clear(Color.White);
+            List.Clear();
         }
 
-        private void PolygonStrip_Click(object sender, EventArgs e)
+        private void textBox3_TextChanged(object sender, EventArgs e)
         {
-            points = new Point[5];
-            for (i = 0 ; i < 5; i++)
-            {
-                points[i].X = rand.Next(0, 400);
-                points[i].Y = rand.Next(0, 500);
-            }
-            shape = new Polygon.Polygon(points);
-            shape.Color = Color.Blue;
-            shape.Draw(graph);
-            List.Add(shape);
+
         }
-        
+
     }
 }
