@@ -17,15 +17,10 @@ bool Task4();
 bool Task5();
 bool ExitFunction();
 void error();
+int countActiveThreads;
 HANDLE SemaphoreThread, SemaphoreTask;
-bool endOfWork = false;
+bool Terminated = false;
 
-struct ThreadParam
-{
-	bool access;
-	bool remove;
-	ThreadFunction* function;
-}param;
 CRITICAL_SECTION criticalSectionForFile;
 
 FILE * logFile;
@@ -37,36 +32,50 @@ public:
 
 		threadsCount = count;
 		pool = (HANDLE*)malloc(sizeof(HANDLE)*threadsCount);
-		fprintf(logFile, "Created %d threads.\n", threadsCount);
 		for (int i = 0; i < threadsCount; i++)
 		{
 			pool[i] = CreateThread(NULL, 0, ThreadProc, (LPVOID)i, 0, NULL);
+			if (pool[i] != NULL)
+			{
+				fprintf(logFile, "Created %d thread.\n", i + 1);
+			}
+			else
+			{
+				fprintf(logFile, "Thread %d didn't create.\n", i + 1);
+			}
 		}
 	}
 
-	int CountOfThread()
-	{
-		return threadsCount;
-	}
 	void AddTask(ThreadFunction* f)
 	{
 		taskQueue.push(f);
+		EnterCriticalSection(&criticalSectionForFile);
+		if (!Terminated)
+			fprintf(logFile, "Add task\n");
+		else
+			fprintf(logFile, "Add task of terminated\n");
+		LeaveCriticalSection(&criticalSectionForFile);
 	}
 
 	~ThreadPool()
 	{
+		Terminated = true;
 		for (int i = 0; i < threadsCount; i++)
 		{
 			AddTask(&ExitFunction);
 		}
 		WaitForMultipleObjects(threadsCount, pool, true, 5000);
-		
+
 		for (int i = 0; i < threadsCount; i++)
 		{
-			TerminateThread(pool[i], 0);
+			if (TerminateThread(pool[i], 0) != NULL)
+			{
+				EnterCriticalSection(&criticalSectionForFile);
+				fprintf(logFile, "Thread %d terminated\n", i + 1);
+				LeaveCriticalSection(&criticalSectionForFile);
+			}
 		}
 		free(pool);
-		free(param);
 
 	}
 
@@ -76,35 +85,27 @@ private:
 		ThreadFunction* task;
 		while (true)
 		{
-			if (!endOfWork)
+			WaitForSingleObject(SemaphoreTask, INFINITE);
+
+			if (!taskQueue.empty())
 			{
-
-				WaitForSingleObject(SemaphoreTask, INFINITE);
-
-				if (!taskQueue.empty())
-				{
-
-					task = taskQueue.front();
-					taskQueue.pop();
-					task();
-					ReleaseSemaphore(SemaphoreThread, 1, NULL);
-				}
+				countActiveThreads++;
+				task = taskQueue.front();
+				taskQueue.pop();
+				task();
+				ReleaseSemaphore(SemaphoreThread, 1, NULL);
+				countActiveThreads--;
 			}
-			else
-				return 0;
-
 		}
 		return 0;
 	}
 	static int threadsCount;
 	static HANDLE *pool;
-	static ThreadParam  *param;
 	static queue <ThreadFunction*> taskQueue;
 };
 
 int ThreadPool::threadsCount;
 HANDLE* ThreadPool::pool;
-ThreadParam* ThreadPool::param;
 queue <ThreadFunction*> ThreadPool::taskQueue;
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -113,17 +114,18 @@ int _tmain(int argc, _TCHAR* argv[])
 #pragma warning(disable: 4996)
 	logFile = fopen("log.txt", "wt");
 
-	int n;
+	int count;
 	puts("Enter number of thread");
-	scanf("%d", &n);
-	if (n < 0)
-		n = 5;
+	scanf("%d", &count);
+	if (count < 0)
+		count = 5;
 	ThreadPool* threadPool;
-	threadPool = new ThreadPool(n);
-	SemaphoreThread = CreateSemaphore(NULL, n, n, NULL);
-	SemaphoreTask = CreateSemaphore(NULL, 0, n, NULL);
 	InitializeCriticalSection(&criticalSectionForFile);
-
+	countActiveThreads = 0;
+	threadPool = new ThreadPool(count);
+	SemaphoreThread = CreateSemaphore(NULL, count, count, NULL);
+	SemaphoreTask = CreateSemaphore(NULL, 0, count, NULL);
+	int n = 0;
 	while (n != 13)
 	{
 		bool Busy = true;
@@ -133,26 +135,37 @@ int _tmain(int argc, _TCHAR* argv[])
 		switch (n)
 		{
 		case '1':
+			if (countActiveThreads == count)
+				puts("All threads are busy\n");
 			WaitForSingleObject(SemaphoreThread, INFINITE);
 			threadPool->AddTask(&Task1);
 			ReleaseSemaphore(SemaphoreTask, 1, NULL);
 			break;
 		case '2':
+
+			if (countActiveThreads == count)
+				puts("All threads are busy\n");
 			WaitForSingleObject(SemaphoreThread, INFINITE);
 			threadPool->AddTask(&Task2);
 			ReleaseSemaphore(SemaphoreTask, 1, NULL);
 			break;
 		case '3':
+			if (countActiveThreads == count)
+				puts("All threads are busy\n");
 			WaitForSingleObject(SemaphoreThread, INFINITE);
 			threadPool->AddTask(&Task3);
 			ReleaseSemaphore(SemaphoreTask, 1, NULL);
 			break;
 		case '4':
+			if (countActiveThreads == count)
+				puts("All threads are busy\n");
 			WaitForSingleObject(SemaphoreThread, INFINITE);
 			threadPool->AddTask(&Task4);
 			ReleaseSemaphore(SemaphoreTask, 1, NULL);
 			break;
 		case '5':
+			if (countActiveThreads == count)
+				puts("All threads are busy\n");
 			WaitForSingleObject(SemaphoreThread, INFINITE);
 			threadPool->AddTask(&Task5);
 			ReleaseSemaphore(SemaphoreTask, 1, NULL);
@@ -160,7 +173,6 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		}
 	}
-	//threadPool->~ThreadPool();
 	delete threadPool;
 	fprintf(logFile, "Terminated program.\n");
 	fclose(logFile);
@@ -173,6 +185,7 @@ bool Task1()
 	{
 		Sleep(1000);
 		puts("This is task 1");
+		fprintf(logFile, " Task 1 completed\n");
 	}
 	catch (...)
 	{
@@ -187,6 +200,7 @@ bool Task2()
 	{
 		Sleep(1000);
 		puts("This is task 2");
+		fprintf(logFile, " Task 2 completed\n");
 	}
 	catch (...)
 	{
@@ -201,6 +215,7 @@ bool Task3()
 	{
 		Sleep(1000);
 		puts("This is task 3");
+		fprintf(logFile, " Task 3 completed\n");
 	}
 	catch (...)
 	{
@@ -215,6 +230,7 @@ bool Task4()
 	{
 		Sleep(1000);
 		puts("This is task 4");
+		fprintf(logFile, " Task 4 completed\n");
 	}
 	catch (...)
 	{
@@ -229,6 +245,7 @@ bool Task5()
 	{
 		Sleep(1000);
 		puts("This is task 5");
+		fprintf(logFile, " Task 5 completed\n");
 	}
 	catch (...)
 	{
