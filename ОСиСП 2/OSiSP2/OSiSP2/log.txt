@@ -1,53 +1,21 @@
 Created 1 thread.
 Created 2 thread.
+Created 3 thread.
+Created 4 thread.
 Add task
 Add task
- Task 1 completed
-Add task
- Task 3 completed
-Add task
- Task 2 completed
- Task 3 completed
-Add task
-Add task
- Task 1 completed
-Add task
- Task 2 completed
-Add task
- Task 3 completed
-Add task
- Task 4 completed
-Add task
- Task 3 completed
-Add task
- Task 2 completed
-Add task
- Task 1 completed
-Add task
- Task 2 completed
-Add task
- Task 3 completed
-Add task
- Task 4 completed
-Add task
- Task 3 completed
-Add task
- Task 2 completed
- Task 1 completed
-Add task
-Add task
- Task 1 completed
-Add task
- Task 2 completed
- Task 3 completed
-Add task
-Add task
- Task 1 completed
-Add task
- Task 2 completed
- Task 3 completed
 Add task of terminated
 Add task of terminated
+Task completed. Result false
+Add task of terminated
+Task completed. Result false
+Task completed. Result false
+Add task of terminated
+Task completed. Result false
+Task completed. Result true
+Task completed. Result true
 Thread 1 terminated
 Thread 2 terminated
+Thread 3 terminated
+Thread 4 terminated
 Terminated program.
