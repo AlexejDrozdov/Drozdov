@@ -16,6 +16,7 @@ namespace OOP3
     {
         private Builds.Build Building;
         public List<Builds.Build> BuildingsList;
+        bool TreeExist = false;
         public Form1()
         {
             InitializeComponent();
@@ -28,11 +29,16 @@ namespace OOP3
             {
                 treeView1.Nodes.Add(build.ToString());
             }*/
-            treeView1.Nodes.Add("Houses");
-            treeView1.Nodes.Add("Government Buildings");
-            treeView1.Nodes.Add("Factories");
-            for (int i = 0 ; i < BuildingsList.Count; i++)
-                BuildingsList[i].ShowInfo(ref treeView1);
+            if (TreeExist)
+            {
+                treeView1.Nodes.Clear();
+                treeView1.Nodes.Add(TreeBuilder.GetTree(BuildingsList));
+            }
+            else
+            {
+                treeView1.Nodes.Add(TreeBuilder.GetTree(BuildingsList));
+                TreeExist = true;
+            }
  
 
         }
@@ -43,7 +49,7 @@ namespace OOP3
             hospital.CountOFCustomer = 2000;
             hospital.CountOfOperatingRoom = 100;
             hospital.Telephone = 103;
-            hospital.GetAddres("", 0);
+            hospital.SetAddres("Gikalo", 0);
         }
 
         private void MuseumToolStripMenuItem_Click(object sender, EventArgs e)
@@ -52,7 +58,7 @@ namespace OOP3
             museum.CountOFCustomer = 1000;
             museum.CountOfExhibit = 250;
             museum.CountOfHall = 10;
-            museum.GetAddres("",0);
+            museum.SetAddres("Gikalo", 0);
             BuildingsList.Add(museum);
         }
 
@@ -62,7 +68,7 @@ namespace OOP3
             cinema.CountOFCustomer = 5000;
             cinema.CountOfHall = 10;
             cinema.CountOfSeance = 10;
-            cinema.GetAddres("", 0);
+            cinema.SetAddres("Gikalo", 0);
             BuildingsList.Add(cinema);
         }
 
@@ -71,7 +77,7 @@ namespace OOP3
             var store = new Shop.Store();
             store.CountOFCustomer = 750;
             store.TypeOfProduct = "Shoes";
-            store.GetAddres("",2);
+            store.SetAddres("Gikalo", 2);
             BuildingsList.Add(store);
 
         }
@@ -82,7 +88,7 @@ namespace OOP3
             militia.CountOFCustomer = 100;
             militia.Telephone = 102;
             militia.VolumeMonkeyHouse = 100;
-            militia.GetAddres("",1);
+            militia.SetAddres("Gikalo", 1);
             BuildingsList.Add(militia);
 
         }
@@ -92,7 +98,7 @@ namespace OOP3
             var factory = new Factories.Factory();
             factory.Aray = 10000;
             factory.Pollution = 50;
-            factory.GetAddres("",5);
+            factory.SetAddres("Gikalo", 5);
             BuildingsList.Add(factory);
         }
 
@@ -103,7 +109,7 @@ namespace OOP3
             house.CountOfFlat = 100;
             house.CountOfFlower = 16;
             house.CountOfPorch = 2;
-            house.GetAddres("",45);
+            house.SetAddres("Gikalo", 45);
             BuildingsList.Add(house);
         }
 
@@ -111,9 +117,14 @@ namespace OOP3
         {
             var privateHome = new PrivateHouse.Home();
             privateHome.CountInhabitant = 6;
-            privateHome.GetAddres("",45);
+            privateHome.SetAddres("Gikalo", 45);
             privateHome.SetArea(100);
             BuildingsList.Add(privateHome);
+        }
+
+        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+
         }
     }
 }

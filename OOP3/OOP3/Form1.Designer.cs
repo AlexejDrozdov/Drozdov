@@ -33,10 +33,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.зданияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LeisureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.StoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SpecialBuildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MuseumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CinemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.StoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SpecialBuildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HospitalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MilitiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FactoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +52,7 @@
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(459, 503);
             this.treeView1.TabIndex = 0;
+            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             // 
             // buttonShow
             // 
@@ -94,6 +95,20 @@
             this.LeisureToolStripMenuItem.Size = new System.Drawing.Size(308, 30);
             this.LeisureToolStripMenuItem.Text = "Досуг";
             // 
+            // MuseumToolStripMenuItem
+            // 
+            this.MuseumToolStripMenuItem.Name = "MuseumToolStripMenuItem";
+            this.MuseumToolStripMenuItem.Size = new System.Drawing.Size(136, 30);
+            this.MuseumToolStripMenuItem.Text = "Музей";
+            this.MuseumToolStripMenuItem.Click += new System.EventHandler(this.MuseumToolStripMenuItem_Click);
+            // 
+            // CinemaToolStripMenuItem
+            // 
+            this.CinemaToolStripMenuItem.Name = "CinemaToolStripMenuItem";
+            this.CinemaToolStripMenuItem.Size = new System.Drawing.Size(136, 30);
+            this.CinemaToolStripMenuItem.Text = "Кино";
+            this.CinemaToolStripMenuItem.Click += new System.EventHandler(this.CinemaToolStripMenuItem_Click);
+            // 
             // StoreToolStripMenuItem
             // 
             this.StoreToolStripMenuItem.Name = "StoreToolStripMenuItem";
@@ -110,31 +125,17 @@
             this.SpecialBuildToolStripMenuItem.Size = new System.Drawing.Size(308, 30);
             this.SpecialBuildToolStripMenuItem.Text = "Специальные учереждения";
             // 
-            // MuseumToolStripMenuItem
-            // 
-            this.MuseumToolStripMenuItem.Name = "MuseumToolStripMenuItem";
-            this.MuseumToolStripMenuItem.Size = new System.Drawing.Size(198, 30);
-            this.MuseumToolStripMenuItem.Text = "Музей";
-            this.MuseumToolStripMenuItem.Click += new System.EventHandler(this.MuseumToolStripMenuItem_Click);
-            // 
-            // CinemaToolStripMenuItem
-            // 
-            this.CinemaToolStripMenuItem.Name = "CinemaToolStripMenuItem";
-            this.CinemaToolStripMenuItem.Size = new System.Drawing.Size(198, 30);
-            this.CinemaToolStripMenuItem.Text = "Кино";
-            this.CinemaToolStripMenuItem.Click += new System.EventHandler(this.CinemaToolStripMenuItem_Click);
-            // 
             // HospitalToolStripMenuItem
             // 
             this.HospitalToolStripMenuItem.Name = "HospitalToolStripMenuItem";
-            this.HospitalToolStripMenuItem.Size = new System.Drawing.Size(198, 30);
+            this.HospitalToolStripMenuItem.Size = new System.Drawing.Size(163, 30);
             this.HospitalToolStripMenuItem.Text = "Больница";
             this.HospitalToolStripMenuItem.Click += new System.EventHandler(this.HospitalToolStripMenuItem_Click);
             // 
             // MilitiaToolStripMenuItem
             // 
             this.MilitiaToolStripMenuItem.Name = "MilitiaToolStripMenuItem";
-            this.MilitiaToolStripMenuItem.Size = new System.Drawing.Size(198, 30);
+            this.MilitiaToolStripMenuItem.Size = new System.Drawing.Size(163, 30);
             this.MilitiaToolStripMenuItem.Text = "Милиция";
             this.MilitiaToolStripMenuItem.Click += new System.EventHandler(this.MilitiaToolStripMenuItem_Click);
             // 
