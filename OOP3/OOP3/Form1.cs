@@ -1,35 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
+using System.Xml.Serialization;
+using Builds;
+using Factories;
+using HighRise;
 using Hospital;
+using Militia;
 using Movie;
+using MuseumBuild;
+using PrivateHouse;
+using Shop;
 
 namespace OOP3
 {
     public partial class Form1 : Form
     {
-        private Builds.Build Building;
-        public List<Builds.Build> BuildingsList;
-        bool TreeExist = false;
+        const string FileName = @"..\..\Buildings.bin";
+        private Build building;
+        public List<Build> BuildingsList;
+        bool treeExist;
+        private TreeNode curretnNode;
         public Form1()
         {
             InitializeComponent();
-            BuildingsList = new List<Builds.Build>();
+            BuildingsList = new List<Build>();
         }
 
-        private void buttonShow_Click(object sender, EventArgs e)
+        private void ShowTree()
         {
-            /*foreach (var build in BuildingsList)
-            {
-                treeView1.Nodes.Add(build.ToString());
-            }*/
-            if (TreeExist)
+
+            if (treeExist)
             {
                 treeView1.Nodes.Clear();
                 treeView1.Nodes.Add(TreeBuilder.GetTree(BuildingsList));
@@ -37,95 +40,207 @@ namespace OOP3
             else
             {
                 treeView1.Nodes.Add(TreeBuilder.GetTree(BuildingsList));
-                TreeExist = true;
+                treeExist = true;
             }
- 
-
         }
+
 
         private void HospitalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var hospital = new Hospital.Infirmary();
-            hospital.CountOFCustomer = 2000;
-            hospital.CountOfOperatingRoom = 100;
-            hospital.Telephone = 103;
-            hospital.SetAddres("Gikalo", 0);
+            var hospital = new Infirmary
+            {
+                CountOFCustomer = 2000,
+                CountOfOperatingRoom = 100,
+                Telephone = 103,
+                address = { Street = "Gikalo", NumberOfHouse = 1 }
+            };
+            BuildingsList.Add(hospital);
+            ShowTree();
         }
 
         private void MuseumToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var museum = new MuseumBuild.Museum();
-            museum.CountOFCustomer = 1000;
-            museum.CountOfExhibit = 250;
-            museum.CountOfHall = 10;
-            museum.SetAddres("Gikalo", 0);
+            var museum = new Museum
+            {
+                CountOFCustomer = 1000,
+                CountOfExhibit = 250,
+                CountOfHall = 10,
+                address = { NumberOfHouse = 2, Street = "Gikalo" }
+            };
             BuildingsList.Add(museum);
+            ShowTree();
         }
 
         private void CinemaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var cinema = new Movie.Cinema();
-            cinema.CountOFCustomer = 5000;
-            cinema.CountOfHall = 10;
-            cinema.CountOfSeance = 10;
-            cinema.SetAddres("Gikalo", 0);
+            var cinema = new Cinema
+            {
+                CountOFCustomer = 5000,
+                CountOfHall = 10,
+                CountOfSeance = 10,
+                address = { NumberOfHouse = 3, Street = "Gikalo" }
+            };
             BuildingsList.Add(cinema);
+            ShowTree();
         }
 
         private void StoreToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var store = new Shop.Store();
-            store.CountOFCustomer = 750;
-            store.TypeOfProduct = "Shoes";
-            store.SetAddres("Gikalo", 2);
+            var store = new Store
+            {
+                CountOFCustomer = 750,
+                TypeOfProduct = "Shoes",
+                address = { NumberOfHouse = 4, Street = "Gikalo" }
+            };
             BuildingsList.Add(store);
-
+            ShowTree();
         }
 
         private void MilitiaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var militia = new Militia.BuildOfMilitia();
-            militia.CountOFCustomer = 100;
-            militia.Telephone = 102;
-            militia.VolumeMonkeyHouse = 100;
-            militia.SetAddres("Gikalo", 1);
+            var militia = new BuildOfMilitia
+            {
+                CountOFCustomer = 100,
+                Telephone = 102,
+                VolumeMonkeyHouse = 100,
+                address = { NumberOfHouse = 5, Street = "Gikalo" }
+            };
             BuildingsList.Add(militia);
-
+            ShowTree();
         }
 
         private void FactoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var factory = new Factories.Factory();
-            factory.Aray = 10000;
-            factory.Pollution = 50;
-            factory.SetAddres("Gikalo", 5);
+            var factory = new Factory { Aray = 10000, Pollution = 50, address = { NumberOfHouse = 6, Street = "Gikalo" } };
             BuildingsList.Add(factory);
+            ShowTree();
         }
 
         private void MultistroyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var house = new HighRise.Multistory();
-            house.CountInhabitant = 1000;
-            house.CountOfFlat = 100;
-            house.CountOfFlower = 16;
-            house.CountOfPorch = 2;
-            house.SetAddres("Gikalo", 45);
+            var house = new Multistory
+            {
+                CountInhabitant = 1000,
+                CountOfFlat = 100,
+                CountOfFlower = 16,
+                CountOfPorch = 2,
+                address = { NumberOfHouse = 7, Street = "Gikalo" }
+            };
             BuildingsList.Add(house);
+            ShowTree();
         }
 
         private void PrivateHouseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var privateHome = new PrivateHouse.Home();
-            privateHome.CountInhabitant = 6;
-            privateHome.SetAddres("Gikalo", 45);
-            privateHome.SetArea(100);
+            var privateHome = new Home
+            {
+                CountInhabitant = 6,
+                Area = 300,
+                address = { NumberOfHouse = 9, Street = "Gikalo" }
+            };
             BuildingsList.Add(privateHome);
+            ShowTree();
         }
 
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-
         }
+
+        private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            TreeNodeTag nodeTag = e.Node.Tag as TreeNodeTag;
+            if (nodeTag.NodeType.IsSubclassOf(typeof(Builds.Build)))
+            {
+                BuildingsList.Remove((Build)nodeTag.Value);
+                treeView1.Nodes.Clear();
+                treeView1.Nodes.Add(TreeBuilder.GetTree(BuildingsList));
+            }
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TreeNodeTag nodeTag = e.Node.Tag as TreeNodeTag;
+            if (nodeTag != null)
+            {
+                curretnNode = e.Node;
+            }
+        }
+
+        private void buttonChangeInfo_Click(object sender, EventArgs e)
+        {
+            if ((curretnNode != null) && (textBoxInfo.Text != ""))
+            {
+                TreeNodeTag nodeTag = (TreeNodeTag)curretnNode.Tag;
+                TreeNodeTag parentTag = (TreeNodeTag)curretnNode.Parent.Tag;
+                curretnNode.Name = nodeTag.PropertiesInfo.Name + " = ";
+                if (nodeTag.Value is int)
+                {
+                    curretnNode.Name += textBoxInfo.Text;
+                    nodeTag.PropertiesInfo.SetValue(parentTag.Value, int.Parse(textBoxInfo.Text));
+                    nodeTag.Value = textBoxInfo.Text;
+                }
+                else if (nodeTag.Value is String)
+                {
+                    curretnNode.Name += textBoxInfo.Text;
+                    nodeTag.PropertiesInfo.SetValue(parentTag.Value, textBoxInfo.Text);
+                    nodeTag.Value = textBoxInfo.Text;
+                }
+            }
+            treeView1.Nodes.Clear();
+            treeView1.Nodes.Add(TreeBuilder.GetTree(BuildingsList));
+        }
+
+        private void buttonBinary_Click(object sender, EventArgs e)
+        {
+
+            saveFileDialog1.Filter = "Binary files (*.bin)|*.bin";
+            saveFileDialog1.RestoreDirectory = true;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+
+                string filename = saveFileDialog1.FileName;
+                Stream TestFileStream = File.Create(filename);
+                BinaryFormatter serializer = new BinaryFormatter();
+                serializer.Serialize(TestFileStream, BuildingsList);
+                TestFileStream.Close();
+            }
+        }
+
+        private void buttonXML_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Filter = "XML-files (*.xml)|*.xml";
+            saveFileDialog1.RestoreDirectory = true;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+
+                string filename = saveFileDialog1.FileName;
+                
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Build>));
+                using (FileStream fileStream = new FileStream(filename, FileMode.Create))
+                {
+                    xmlSerializer.Serialize(fileStream, BuildingsList);
+                }
+            }
+        }
+
+        private void buttonDeserialize_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Binary files (*.bin)|*.bin";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filename = openFileDialog1.FileName;
+                if (File.Exists(filename))
+                {
+                    Stream TestFileStream = File.OpenRead(filename);
+                    BinaryFormatter deserializer = new BinaryFormatter();
+                    BuildingsList = (List<Build>)deserializer.Deserialize(TestFileStream);
+                    TestFileStream.Close();
+                    treeView1.Nodes.Clear();
+                    treeView1.Nodes.Add(TreeBuilder.GetTree(BuildingsList));
+                }
+            }
+        }
+
     }
 }
 

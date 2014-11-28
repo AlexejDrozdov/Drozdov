@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Builds
 {
-    class Addres
+    [Serializable()]
+    public class Addres
     {
+        public Addres() { }
         public string Street { get; set; }
         public int NumberOfHouse { get; set; }
 

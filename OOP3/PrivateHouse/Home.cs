@@ -7,19 +7,11 @@ using System.Windows.Forms;
 
 namespace PrivateHouse
 {
+    [Serializable()]
     public class Home : Houses.House
     {
-        private int Area;
-
-        public void SetArea(int NewArea)
-        {
-            Area = NewArea;
-        }
-
-        public int GetArea()
-        {
-            return Area;
-        }
+        public Home() { }
+        public int Area { get; set; }
 
 
     }

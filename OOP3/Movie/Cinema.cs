@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Movie
 {
+    [Serializable()]
     public class Cinema: Entertainment.Leisure
     {
+        public Cinema() { }
         public int CountOfSeance { get; set; }
     }
 }

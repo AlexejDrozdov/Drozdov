@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace SpecialBuildings
 {
+    [Serializable()]
     public class SpecialBuilding: GovernmentBuildings.GovernmentBuilding
     {
+        public SpecialBuilding() { }
         public int Telephone { get; set; }
     }
 }

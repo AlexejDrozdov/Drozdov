@@ -7,23 +7,16 @@ using System.Windows.Forms;
 
 namespace Builds
 {
+    [Serializable()]
     public class Build
     {
-        private Addres addres = new Addres();
-        public void SetAddres(string NewStreet, int Number)
+        public Addres address = new Addres();
+        public Build() { }
+        public Addres Address
         {
-            addres = new Addres {NumberOfHouse = Number, Street = NewStreet};
-        }
+            get { return address; }
+            set { address = value; }
 
-        public string GetAddresStreet()
-        {
-            return addres.Street;
         }
-
-        public int GetAddresNumber()
-        {
-            return addres.NumberOfHouse;
-        }
-
     }
 }

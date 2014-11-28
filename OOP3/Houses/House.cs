@@ -6,19 +6,10 @@ using System.Threading.Tasks;
 
 namespace Houses
 {
+    [Serializable()]
     public class House : Builds.Build
     {
-        private int CountOfInhabitant;
-
-        public void SetCountOfInhabitant(int Inhabitant)
-        {
-            CountOfInhabitant = Inhabitant;
-        }
-
-        public int GetCountOfInhabitant()
-        {
-            return CountOfInhabitant;
-        }
+        public House() { }
         public int CountInhabitant { get; set; }
     }
 }

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace MuseumBuild
 {
+    [Serializable()]
     public class Museum : Entertainment.Leisure
     {
+        public Museum() { }
         public int CountOfExhibit { get; set; }
     }
 }

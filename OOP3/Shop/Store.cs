@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Shop
 {
+    [Serializable()]
     public class Store: GovernmentBuildings.GovernmentBuilding
     {
+        public Store() { }
         public string TypeOfProduct { get; set; }
     }
 }

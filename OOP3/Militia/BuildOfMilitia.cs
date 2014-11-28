@@ -8,8 +8,10 @@ using System.Windows.Forms;
 
 namespace Militia
 {
+    [Serializable()]
     public class BuildOfMilitia: SpecialBuildings.SpecialBuilding
     {
+        public BuildOfMilitia() { }
         public int VolumeMonkeyHouse { get; set; }
 
     }

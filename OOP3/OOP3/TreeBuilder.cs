@@ -1,78 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Builds;
 
 namespace OOP3
 {
     class TreeBuilder
     {
-        public static TreeNode GetTree(List<Builds.Build> Items)
+        public static TreeNode GetTree(List<Build> items)
         {
-            TreeNode Result = new TreeNode("root")
+            TreeNode result = new TreeNode("root")
             {
-                Tag = Items
+                Tag = items
             };
-            foreach (var item in Items)
+            foreach (var item in items)
             {
-                Result.Nodes.Add(GetNodeByItem(item));
+                result.Nodes.Add(GetNodeByItem(item));
             }
 
-            return Result;
+            return result;
         }
 
-        private static TreeNode GetNodeByItem(object Item)
+        private static TreeNode GetNodeByItem(object item)
         {
-            Type ItemType = Item.GetType();
-            TreeNode Result = new TreeNode(ItemType.Name)
+            Type itemType = item.GetType();
+            TreeNode result = new TreeNode(itemType.Name)
             {
-                Tag = new TreeNodeTag { NodeType = ItemType, Value = Item }
+                Tag = new TreeNodeTag { NodeType = itemType, Value = item }
             };
-            PropertyInfo[] Properties = ItemType.GetProperties();
-            foreach (var Property in Properties)
+            PropertyInfo[] properties = itemType.GetProperties();
+            foreach (var property in properties)
             {
-                Result.Nodes.Add(GetNodeByProperty(Property.GetValue(Item), Property));
+                result.Nodes.Add(GetNodeByProperty(property.GetValue(item), property));
             }
 
-            return Result;
+            return result;
         }
 
-        private static TreeNode GetNodeByProperty(object Item, PropertyInfo ItemProperty)
+        private static TreeNode GetNodeByProperty(object item, PropertyInfo itemProperty)
         {
-            Type ItemType = Item.GetType();
-            TreeNode Result;
+            Type itemType = item.GetType();
+            TreeNode result;
 
-            if (!ItemType.IsValueType && !(Item is String))
+            if (!itemType.IsValueType && !(item is String))
             {
-                Result = TreeNodeFromProperty(Item, ItemProperty, ItemType);
+                result = TreeNodeFromProperty(item, itemProperty, itemType);
             }
             else
             {
-                Result = new TreeNode(ItemProperty.Name + " = " + Item.ToString());
+                result = new TreeNode(itemProperty.Name + " = " + item);
             }
-            Result.Tag = new TreeNodeTag
+            result.Tag = new TreeNodeTag
             {
-                NodeType = ItemType,
-                Value = Item,
-                PropertiesInfo = ItemProperty
+                NodeType = itemType,
+                Value = item,
+                PropertiesInfo = itemProperty
             };
 
-            return Result;
+            return result;
         }
 
-        public static TreeNode TreeNodeFromProperty(object Item, PropertyInfo ItemProperty, Type ItemType)
+        public static TreeNode TreeNodeFromProperty(object item, PropertyInfo itemProperty, Type itemType)
         {
-            TreeNode Result = new TreeNode(ItemProperty.Name);
-            PropertyInfo[] Properties = ItemType.GetProperties();
-            foreach (var property in Properties)
+            TreeNode result = new TreeNode(itemProperty.Name);
+            PropertyInfo[] properties = itemType.GetProperties();
+            foreach (var property in properties)
             {
-                Result.Nodes.Add(GetNodeByProperty(property.GetValue(Item), property));
+                result.Nodes.Add(GetNodeByProperty(property.GetValue(item), property));
             }
 
-            return Result;
+            return result;
         }
 
     }
