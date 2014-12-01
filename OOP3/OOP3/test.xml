@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ArrayOfBuild xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Build xsi:type="Infirmary">
+    <address>
+      <Street>Gikalo</Street>
+      <NumberOfHouse>0</NumberOfHouse>
+    </address>
+    <Address>
+      <Street>Gikalo</Street>
+      <NumberOfHouse>0</NumberOfHouse>
+    </Address>
+    <CountOfCustomer>10</CountOfCustomer>
+    <Telephone>103</Telephone>
+    <CountOfOperatingRoom>100</CountOfOperatingRoom>
+  </Build>
+  <Build xsi:type="Multistory">
+    <address>
+      <Street>Gikalo</Street>
+      <NumberOfHouse>0</NumberOfHouse>
+    </address>
+    <Address>
+      <Street>Gikalo</Street>
+      <NumberOfHouse>0</NumberOfHouse>
+    </Address>
+    <CountInhabitant>5</CountInhabitant>
+    <CountOfFlower>9</CountOfFlower>
+    <CountOfPorch>2</CountOfPorch>
+    <CountOfFlat>60</CountOfFlat>
+  </Build>
+  <Build xsi:type="Factory">
+    <address>
+      <Street>Gikalo</Street>
+      <NumberOfHouse>0</NumberOfHouse>
+    </address>
+    <Address>
+      <Street>Gikalo</Street>
+      <NumberOfHouse>0</NumberOfHouse>
+    </Address>
+    <Pollution>100</Pollution>
+    <Aray>100</Aray>
+  </Build>
+  <Build xsi:type="Home">
+    <address>
+      <Street>Gikalo</Street>
+      <NumberOfHouse>0</NumberOfHouse>
+    </address>
+    <Address>
+      <Street>Gikalo</Street>
+      <NumberOfHouse>0</NumberOfHouse>
+    </Address>
+    <CountInhabitant>5</CountInhabitant>
+    <Area>100</Area>
+  </Build>
+</ArrayOfBuild>

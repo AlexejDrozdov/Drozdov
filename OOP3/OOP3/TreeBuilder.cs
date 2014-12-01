@@ -34,7 +34,6 @@ namespace OOP3
             {
                 result.Nodes.Add(GetNodeByProperty(property.GetValue(item), property));
             }
-
             return result;
         }
 

@@ -30,6 +30,7 @@
         {
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.buildingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxInfo = new System.Windows.Forms.TextBox();
             this.buttonChangeInfo = new System.Windows.Forms.Button();
             this.buttonBinary = new System.Windows.Forms.Button();
@@ -37,7 +38,9 @@
             this.buttonDeserialize = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.buildingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xmlDeserializationButton = new System.Windows.Forms.Button();
+            this.serializationButton = new System.Windows.Forms.Button();
+            this.desirializationButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,6 +63,12 @@
             this.menuStrip1.Size = new System.Drawing.Size(1165, 33);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // buildingsToolStripMenuItem
+            // 
+            this.buildingsToolStripMenuItem.Name = "buildingsToolStripMenuItem";
+            this.buildingsToolStripMenuItem.Size = new System.Drawing.Size(96, 29);
+            this.buildingsToolStripMenuItem.Text = "Buildings";
             // 
             // textBoxInfo
             // 
@@ -112,17 +121,44 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // buildingsToolStripMenuItem
+            // xmlDeserializationButton
             // 
-            this.buildingsToolStripMenuItem.Name = "buildingsToolStripMenuItem";
-            this.buildingsToolStripMenuItem.Size = new System.Drawing.Size(96, 29);
-            this.buildingsToolStripMenuItem.Text = "Buildings";
+            this.xmlDeserializationButton.Location = new System.Drawing.Point(901, 77);
+            this.xmlDeserializationButton.Name = "xmlDeserializationButton";
+            this.xmlDeserializationButton.Size = new System.Drawing.Size(192, 39);
+            this.xmlDeserializationButton.TabIndex = 8;
+            this.xmlDeserializationButton.Text = "Десириализация";
+            this.xmlDeserializationButton.UseVisualStyleBackColor = true;
+            this.xmlDeserializationButton.Click += new System.EventHandler(this.xmlDeserializationButton_Click);
+            // 
+            // serializationButton
+            // 
+            this.serializationButton.Location = new System.Drawing.Point(688, 122);
+            this.serializationButton.Name = "serializationButton";
+            this.serializationButton.Size = new System.Drawing.Size(206, 39);
+            this.serializationButton.TabIndex = 9;
+            this.serializationButton.Text = "Сериализация";
+            this.serializationButton.UseVisualStyleBackColor = true;
+            this.serializationButton.Click += new System.EventHandler(this.serializationButton_Click);
+            // 
+            // desirializationButton
+            // 
+            this.desirializationButton.Location = new System.Drawing.Point(901, 122);
+            this.desirializationButton.Name = "desirializationButton";
+            this.desirializationButton.Size = new System.Drawing.Size(192, 39);
+            this.desirializationButton.TabIndex = 10;
+            this.desirializationButton.Text = "Десириализация";
+            this.desirializationButton.UseVisualStyleBackColor = true;
+            this.desirializationButton.Click += new System.EventHandler(this.desirializationButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1165, 596);
+            this.Controls.Add(this.desirializationButton);
+            this.Controls.Add(this.serializationButton);
+            this.Controls.Add(this.xmlDeserializationButton);
             this.Controls.Add(this.buttonDeserialize);
             this.Controls.Add(this.buttonXML);
             this.Controls.Add(this.buttonBinary);
@@ -152,6 +188,9 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem buildingsToolStripMenuItem;
+        private System.Windows.Forms.Button xmlDeserializationButton;
+        private System.Windows.Forms.Button serializationButton;
+        private System.Windows.Forms.Button desirializationButton;
     }
 }
 

@@ -26,12 +26,16 @@ namespace OOP3
         }
         private void getTypes()
         {
+            
             var directory = new DirectoryInfo("ClassDll");
             allTypes = directory.GetFiles("*.dll").
                 Select(x => Assembly.LoadFile(x.FullName).GetTypes().
                     Where(y => y.IsSubclassOf(typeof(Build))))
                     .Aggregate(new List<Type>(), (acc, x) => { acc.AddRange(x); return acc; });
-
+            typesList = directory.GetFiles("*.dll").
+              Select(x => Assembly.LoadFile(x.FullName).GetTypes())
+                  .Aggregate(new List<Type>(), (acc, x) => { acc.AddRange(x); return acc; });
+            typesList.Add(typeof(Addres));
             foreach (var type in allTypes)
             {
                 var menuItem = new ToolStripButton
@@ -44,9 +48,6 @@ namespace OOP3
                 menuItem.Click += BuildingItem_Click;
                 buildingsToolStripMenuItem.DropDownItems.Add(menuItem);
             }
-
-
-
         }
 
 
@@ -98,6 +99,7 @@ namespace OOP3
             if (nodeTag != null)
             {
                 curretnNode = e.Node;
+                textBoxInfo.Text = nodeTag.Value.ToString();
             }
         }
 
@@ -147,18 +149,13 @@ namespace OOP3
             saveFileDialog1.RestoreDirectory = true;
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-
                 string filename = saveFileDialog1.FileName;
                 Type[] types = allTypes.ToArray();
-
-
                 var xmlSerializer = new XmlSerializer(typeof(List<Build>), types);
                 using (FileStream fileStream = new FileStream(filename, FileMode.Create))
                 {
                     xmlSerializer.Serialize(fileStream, BuildingsList);
                 }
-
-
             }
         }
 
@@ -178,6 +175,61 @@ namespace OOP3
                     treeView1.Nodes.Add(TreeBuilder.GetTree(BuildingsList));
                 }
             }
+        }
+
+        private void xmlDeserializationButton_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "XML-files (*.xml)|*.xml";
+            openFileDialog1.RestoreDirectory = true;
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filename = openFileDialog1.FileName;
+                Type[] types = allTypes.ToArray();
+                BuildingsList.Clear();
+                var xmlSerializer = new XmlSerializer(typeof(List<Build>), types);
+                using (var fileStream = new FileStream(filename, FileMode.OpenOrCreate))
+                {
+                    BuildingsList = (List<Build>)xmlSerializer.Deserialize(fileStream);
+                }
+            }
+            ShowTree();
+        }
+
+        private void serializationButton_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Filter = "Serialized file (*.txt)|*.txt";
+            saveFileDialog1.RestoreDirectory = true;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filename = saveFileDialog1.FileName;
+                Type[] types = allTypes.ToArray();
+                Serialization serialization = new Serialization();
+                using (FileStream fileStream = new FileStream(filename, FileMode.Create))
+                {
+                    StreamWriter strWr = new StreamWriter((Stream)fileStream);
+                    strWr.AutoFlush = true;
+                    serialization.Serialize(BuildingsList, strWr);
+                }
+            }
+        }
+
+        private void desirializationButton_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Serialized files (*.txt)|*.txt";
+            openFileDialog1.RestoreDirectory = true;
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filename = openFileDialog1.FileName;
+                Type[] types = allTypes.ToArray();
+                BuildingsList.Clear();
+                Deserialization deserialization = new Deserialization();
+                using (var fileStream = new FileStream(filename, FileMode.OpenOrCreate))
+                {
+                    StreamReader reader = new StreamReader((Stream) fileStream);
+                    BuildingsList = (List<Build>) deserialization.Deserialize(typesList, reader);
+                }
+            }
+            ShowTree();
         }
 
     }
