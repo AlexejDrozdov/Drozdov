@@ -5,14 +5,25 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
-namespace Militia
+namespace BuildOfMilitia
 {
     [Serializable()]
-    public class BuildOfMilitia: SpecialBuildings.SpecialBuilding
+
+    public class Militia: SpecialBuildings.SpecialBuilding
     {
-        public BuildOfMilitia() { }
+        public Militia() { }
         public int VolumeMonkeyHouse { get; set; }
+
+        public override void initialization()
+        {
+            address.NumberOfHouse = 0;
+            address.Street = "Gikalo";
+            CountOfCustomer = 10;
+            Telephone = 102;
+            VolumeMonkeyHouse = 33;
+        }
 
     }
     

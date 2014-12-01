@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Builds;
 
 namespace GovernmentBuildings
 {
-    [Serializable()]
-    public class GovernmentBuilding : Builds.Build
-    {
+    
+    [Serializable]
+    public class GovernmentBuilding : Build
+    {     
         public GovernmentBuilding() { }
-        public int CountOFCustomer { get; set; }
+        public int CountOfCustomer { get; set; }
+
     }
 }

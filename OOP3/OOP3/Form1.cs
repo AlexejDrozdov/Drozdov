@@ -1,33 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using Builds;
-using Factories;
-using HighRise;
-using Hospital;
-using Militia;
-using Movie;
-using MuseumBuild;
-using PrivateHouse;
-using Shop;
 
 namespace OOP3
 {
     public partial class Form1 : Form
     {
-        const string FileName = @"..\..\Buildings.bin";
-        private Build building;
         public List<Build> BuildingsList;
+        private List<Type> typesList;
+        private List<Type> allTypes;
         bool treeExist;
         private TreeNode curretnNode;
         public Form1()
         {
+
             InitializeComponent();
             BuildingsList = new List<Build>();
+            getTypes();
         }
+        private void getTypes()
+        {
+            var directory = new DirectoryInfo("ClassDll");
+            allTypes = directory.GetFiles("*.dll").
+                Select(x => Assembly.LoadFile(x.FullName).GetTypes().
+                    Where(y => y.IsSubclassOf(typeof(Build))))
+                    .Aggregate(new List<Type>(), (acc, x) => { acc.AddRange(x); return acc; });
+
+            foreach (var type in allTypes)
+            {
+                var menuItem = new ToolStripButton
+                {
+                    Name = type.Name,
+                    Text = type.Name,
+                    Tag = type,
+                };
+
+                menuItem.Click += BuildingItem_Click;
+                buildingsToolStripMenuItem.DropDownItems.Add(menuItem);
+            }
+
+
+
+        }
+
+
 
         private void ShowTree()
         {
@@ -45,102 +67,15 @@ namespace OOP3
         }
 
 
-        private void HospitalToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BuildingItem_Click(object sender, EventArgs e)
         {
-            var hospital = new Infirmary
-            {
-                CountOFCustomer = 2000,
-                CountOfOperatingRoom = 100,
-                Telephone = 103,
-                address = { Street = "Gikalo", NumberOfHouse = 1 }
-            };
-            BuildingsList.Add(hospital);
+            Build Item = (Build)Activator.CreateInstance((Type)((ToolStripItem)sender).Tag);
+            
+            Item.initialization();
+            BuildingsList.Add(Item);
             ShowTree();
         }
 
-        private void MuseumToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var museum = new Museum
-            {
-                CountOFCustomer = 1000,
-                CountOfExhibit = 250,
-                CountOfHall = 10,
-                address = { NumberOfHouse = 2, Street = "Gikalo" }
-            };
-            BuildingsList.Add(museum);
-            ShowTree();
-        }
-
-        private void CinemaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var cinema = new Cinema
-            {
-                CountOFCustomer = 5000,
-                CountOfHall = 10,
-                CountOfSeance = 10,
-                address = { NumberOfHouse = 3, Street = "Gikalo" }
-            };
-            BuildingsList.Add(cinema);
-            ShowTree();
-        }
-
-        private void StoreToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var store = new Store
-            {
-                CountOFCustomer = 750,
-                TypeOfProduct = "Shoes",
-                address = { NumberOfHouse = 4, Street = "Gikalo" }
-            };
-            BuildingsList.Add(store);
-            ShowTree();
-        }
-
-        private void MilitiaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var militia = new BuildOfMilitia
-            {
-                CountOFCustomer = 100,
-                Telephone = 102,
-                VolumeMonkeyHouse = 100,
-                address = { NumberOfHouse = 5, Street = "Gikalo" }
-            };
-            BuildingsList.Add(militia);
-            ShowTree();
-        }
-
-        private void FactoryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var factory = new Factory { Aray = 10000, Pollution = 50, address = { NumberOfHouse = 6, Street = "Gikalo" } };
-            BuildingsList.Add(factory);
-            ShowTree();
-        }
-
-        private void MultistroyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var house = new Multistory
-            {
-                CountInhabitant = 1000,
-                CountOfFlat = 100,
-                CountOfFlower = 16,
-                CountOfPorch = 2,
-                address = { NumberOfHouse = 7, Street = "Gikalo" }
-            };
-            BuildingsList.Add(house);
-            ShowTree();
-        }
-
-        private void PrivateHouseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var privateHome = new Home
-            {
-                CountInhabitant = 6,
-                Area = 300,
-                address = { NumberOfHouse = 9, Street = "Gikalo" }
-            };
-            BuildingsList.Add(privateHome);
-            ShowTree();
-        }
 
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -214,12 +149,16 @@ namespace OOP3
             {
 
                 string filename = saveFileDialog1.FileName;
-                
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Build>));
+                Type[] types = allTypes.ToArray();
+
+
+                var xmlSerializer = new XmlSerializer(typeof(List<Build>), types);
                 using (FileStream fileStream = new FileStream(filename, FileMode.Create))
                 {
                     xmlSerializer.Serialize(fileStream, BuildingsList);
                 }
+
+
             }
         }
 
